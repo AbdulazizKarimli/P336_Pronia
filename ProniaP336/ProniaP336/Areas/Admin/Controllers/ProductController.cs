@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProniaP336.Areas.Admin.ViewModels.ProductViewModels;
@@ -10,6 +11,7 @@ using System;
 namespace ProniaP336.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin,Moderator")]
 public class ProductController : Controller
 {
     private readonly PronioDbContext _context;
@@ -21,6 +23,7 @@ public class ProductController : Controller
         _webHostEnvironment = webHostEnvironment;
     }
 
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         var products = await _context.Products

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProniaP336.Contexts;
 using ProniaP336.Models;
@@ -46,6 +47,7 @@ public class SliderController : Controller
         return View(slider);
     }
 
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Delete(int id)
     {
         var slider = await _context.Sliders.FirstOrDefaultAsync(s => s.Id == id);
@@ -58,6 +60,7 @@ public class SliderController : Controller
     [HttpPost]
     [ActionName(nameof(Delete))]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> DeleteSlider(int id)
     {
         var slider = await _context.Sliders.FirstOrDefaultAsync(s => s.Id == id);
