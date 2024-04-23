@@ -1,0 +1,32 @@
+﻿@using ProniaP336.Areas.Admin.ViewModels.TagViewModels
+
+@{
+    ViewData["Title"] = "Create";
+}
+@model CreateTagViewModel
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description">
+                        Basic form layout
+                    </p>
+                    <form class="forms-sample" method="post">
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input class="form-control" asp-for="Name" placeholder="Name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

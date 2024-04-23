@@ -10,8 +10,9 @@ public class Product
     public int Rating { get; set; }
     public int DiscountPercent { get; set; }
     public bool IsDeleted { get; set; }
-    public DateTime CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }   
     public DateTime UpdatedDate { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+    public ICollection<ProductTag> ProductTags { get; set; }
 }

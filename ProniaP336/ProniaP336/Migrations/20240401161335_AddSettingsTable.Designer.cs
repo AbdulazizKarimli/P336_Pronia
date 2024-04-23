@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProniaP336.Contexts;
 
@@ -11,9 +12,10 @@ using ProniaP336.Contexts;
 namespace ProniaP336.Migrations
 {
     [DbContext(typeof(PronioDbContext))]
-    partial class PronioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240401161335_AddSettingsTable")]
+    partial class AddSettingsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,29 +297,6 @@ namespace ProniaP336.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ProniaP336.Models.ProductTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("ProductTags");
-                });
-
             modelBuilder.Entity("ProniaP336.Models.Setting", b =>
                 {
                     b.Property<int>("Id")
@@ -394,24 +373,6 @@ namespace ProniaP336.Migrations
                     b.ToTable("Sliders");
                 });
 
-            modelBuilder.Entity("ProniaP336.Models.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tags");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -474,38 +435,9 @@ namespace ProniaP336.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ProniaP336.Models.ProductTag", b =>
-                {
-                    b.HasOne("ProniaP336.Models.Product", "Product")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProniaP336.Models.Tag", "Tag")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Tag");
-                });
-
             modelBuilder.Entity("ProniaP336.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("ProniaP336.Models.Product", b =>
-                {
-                    b.Navigation("ProductTags");
-                });
-
-            modelBuilder.Entity("ProniaP336.Models.Tag", b =>
-                {
-                    b.Navigation("ProductTags");
                 });
 #pragma warning restore 612, 618
         }

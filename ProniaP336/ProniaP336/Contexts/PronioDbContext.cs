@@ -14,4 +14,7 @@ public class PronioDbContext : IdentityDbContext<AppUser>
     public DbSet<Shipping> Shippings { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Setting> Settings { get; set; } = null!;
+    public DbSet<Tag> Tags { get; set; } = null!;
+    public DbSet<ProductTag> ProductTags { get; set; } = null!;
 }

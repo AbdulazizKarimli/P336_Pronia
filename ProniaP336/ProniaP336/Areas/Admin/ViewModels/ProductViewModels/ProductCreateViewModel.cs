@@ -17,4 +17,5 @@ public class ProductCreateViewModel
     [Required]
     public IFormFile Image { get; set; }
     public int CategoryId { get; set; }
+    public int[] TagIds { get; set; }
 }

@@ -44,11 +44,20 @@
                             <span asp-validation-for="Image" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect2">Categories</label>
-                            <select class="form-control" id="exampleFormControlSelect2" name="categoryId">
+                            <label for="category">Categories</label>
+                            <select class="form-control" id="category" name="categoryId">
                                 @foreach (Category category in ViewBag.Categories)
                                 {
                                     <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tag">Tags</label>
+                            <select class="form-control" id="tag" name="tagIds" multiple>
+                                @foreach (Tag tag in ViewBag.Tags)
+                                {
+                                    <option value="@tag.Id">@tag.Name</option>
                                 }
                             </select>
                         </div>

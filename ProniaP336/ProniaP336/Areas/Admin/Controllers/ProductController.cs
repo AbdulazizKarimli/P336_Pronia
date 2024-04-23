@@ -28,6 +28,7 @@ public class ProductController : Controller
     {
         var products = await _context.Products
             .AsNoTracking()
+            .OrderByDescending(p => p.CreatedDate)
             .Include(p => p.Category)
             .Where(p => !p.IsDeleted)
             .ToListAsync();
@@ -38,6 +39,7 @@ public class ProductController : Controller
     public async Task<IActionResult> Create()
     {
         ViewBag.Categories = await _context.Categories.ToListAsync();
+        ViewBag.Tags = await _context.Tags.ToListAsync();
 
         return View();
     }
@@ -47,13 +49,14 @@ public class ProductController : Controller
     public async Task<IActionResult> Create(ProductCreateViewModel product)
     {
         ViewBag.Categories = await _context.Categories.ToListAsync();
+        ViewBag.Tags = await _context.Tags.ToListAsync();
 
         if (!ModelState.IsValid)
         {
             return View();
         }
 
-        if(product.Image.CheckFileSize(3000))
+        if(!product.Image.CheckFileSize(3000))
         {
             ModelState.AddModelError("Image", "Get ariqla");
             return View();
@@ -75,6 +78,12 @@ public class ProductController : Controller
         //using FileStream stream = new FileStream(path, FileMode.Create);
         //await product.Image.CopyToAsync(stream);
 
+        List<ProductTag> productTags = new List<ProductTag>();
+        foreach (var tagId in product.TagIds)
+        {
+            productTags.Add(new ProductTag { TagId = tagId });
+        }
+        
         Product newProduct = new()
         {
             Name = product.Name,
@@ -84,6 +93,7 @@ public class ProductController : Controller
             Rating = product.Rating,
             Image = fileName,
             CategoryId = product.CategoryId,
+            ProductTags = productTags,
             CreatedDate = DateTime.UtcNow,
             UpdatedDate = DateTime.UtcNow
         };
@@ -173,19 +183,8 @@ public class ProductController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> Delete(int id)
-    {
-        var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
-        if (product == null)
-            return NotFound();
-
-        return View(product);
-    }
-
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    [ActionName(nameof(Delete))]
-    public async Task<IActionResult> DeleteProduct(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
         if (product == null)
@@ -202,6 +201,6 @@ public class ProductController : Controller
 
         await _context.SaveChangesAsync();
 
-        return RedirectToAction(nameof(Index));
+        return Json(new { message = "Your product has been deleted" });
     }
 }

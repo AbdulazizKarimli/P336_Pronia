@@ -1,0 +1,51 @@
+﻿@model UserUpdateViewModel
+
+<div class="myaccount-details">
+    <form asp-action="UpdateProfile" class="myaccount-form" method="post">
+        <div class="myaccount-form-inner">
+            <div class="single-input">
+                <label>Fullname*</label>
+                <input asp-for="Fullname" placeholder="Fullname" />
+                <span asp-validation-for="Fullname" class="text-danger"></span>
+            </div>
+            <div class="single-input">
+                <label>Username*</label>
+                <input asp-for="UserName" placeholder="Username" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="single-input">
+                <label>Email*</label>
+                <input asp-for="Email" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="single-input">
+                <label>
+                    Current Password(leave blank to leave
+                    unchanged)
+                </label>
+                <input asp-for="CurrentPassword" placeholder="Current password" />
+                <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+            </div>
+            <div class="single-input">
+                <label>
+                    New Password (leave blank to leave
+                    unchanged)
+                </label>
+                <input asp-for="NewPassword" placeholder="New password" />
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+            <div class="single-input">
+                <label>Confirm New Password</label>
+                <input asp-for="ConfirmNewPassword" placeholder="Confirm new password" />
+                <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="single-input">
+                <button class="btn btn-custom-size lg-size btn-pronia-primary"
+                        type="submit">
+                    <span>SAVE CHANGES</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
